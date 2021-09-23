@@ -146,6 +146,7 @@ def select(update, bot):
 def callback(update, bot):
     text, userID = update.callback_query.data.split(" ")
     update2 = userUpdate[userID]
+    if(isDos(update2)): return
     update.callback_query.edit_message_text(text)
 
     sql = sqlite3.connect("KaTsu.db")
