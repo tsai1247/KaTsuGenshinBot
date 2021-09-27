@@ -271,7 +271,7 @@ def getText(update, bot):
                     del userStatus[userID]
                     return
                 del userStatus[userID]
-            elif state == 'waitdetail':
+            elif state == 'waitDetail':
                 probability = random.random()
                 successful = random.random()-probability
                 if(successful<-0.15):
@@ -281,7 +281,7 @@ def getText(update, bot):
                 else:
                     Send(update, "你再問問看")
                 del userStatus[userID]
-                
+
     except:
         pass
     # else:
