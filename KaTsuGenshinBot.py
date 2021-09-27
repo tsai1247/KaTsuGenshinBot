@@ -26,6 +26,8 @@ def main():
     updater.dispatcher.add_handler(CommandHandler('cal', select))
     updater.dispatcher.add_handler(CommandHandler('update', setVal))
 
+    updater.dispatcher.add_handler(CommandHandler('conch', getRandomReply))
+
 
     updater.dispatcher.add_handler(MessageHandler(Filters.text, getText))
     updater.dispatcher.add_handler(MessageHandler(Filters.photo, getPhoto))

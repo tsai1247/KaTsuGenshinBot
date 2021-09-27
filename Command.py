@@ -1,10 +1,11 @@
+from collections import UserDict
 from dosdefence import isDos, reload, dos_defence
 from os import getenv
 from function import *
 import sqlite3
 from interact_with_imgur import uploadAndGetPhoto
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
-
+import random
 
 # preparation
 userStatus = {}
@@ -78,6 +79,27 @@ def add(update, bot):
     if str(userID) == getenv('DEVELOPER_ID'):
         userStatus.update({userID:"waitName"})
         Send(update, "輸入名字", force=True)
+
+
+def getRandomReply(update, bot):
+    if(isDos(update)): return
+    userID = update.message.from_user.id
+    text = update.message.text.split(' ')
+    if len(text)==1:
+        userStatus.update({userID:"waitDetail"})
+        Send(update, "輸入問題", force=True)
+    else:
+        probability = random.random()
+        successful = random.random()-probability
+        if(successful<-0.15):
+            Send(update, "可以")
+        elif (successful>0.15):
+            Send(update, "不行")
+        else:
+            Send(update, "你再問問看")
+            
+
+
 
 def finding(update, bot):
     if(isDos(update)): return
@@ -249,7 +271,17 @@ def getText(update, bot):
                     del userStatus[userID]
                     return
                 del userStatus[userID]
-
+            elif state == 'waitdetail':
+                probability = random.random()
+                successful = random.random()-probability
+                if(successful<-0.15):
+                    Send(update, "可以")
+                elif (successful>0.15):
+                    Send(update, "不行")
+                else:
+                    Send(update, "你再問問看")
+                del userStatus[userID]
+                
     except:
         pass
     # else:
